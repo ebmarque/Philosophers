@@ -6,15 +6,15 @@
 #    By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/06 14:47:38 by ebmarque          #+#    #+#              #
-#    Updated: 2024/02/06 15:08:26 by ebmarque         ###   ########.fr        #
+#    Updated: 2024/02/06 15:55:16 by ebmarque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -pthread
 NAME = philo
 
-SRC = SRC/MAIN/*.c SRC/UTILS/*.c SRC/ERROR/*.c
+SRC = SRC/MAIN/*.c SRC/UTILS/*.c SRC/ERROR/*.c SRC/INIT/*.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

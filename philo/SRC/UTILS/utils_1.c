@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:33 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/06 15:05:51 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:39:32 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,21 @@ void	_put_str_fd(char *str, int fd)
 	while (str[i])
 	{
 		write(fd, &str[i], 1);
+		i++;
+	}
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*p;
+	size_t			i;
+
+	p = s;
+	i = 0;
+	while (i < n)
+	{
+		*p = '\0';
+		p++;
 		i++;
 	}
 }
