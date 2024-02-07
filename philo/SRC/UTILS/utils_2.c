@@ -6,13 +6,13 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:39:53 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/07 17:15:15 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/07 18:00:12 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/philosophers.h"
 
-long	precise_time(t_timecode time_code)
+long	_precise_time(t_timecode time_code)
 {
 	struct timeval	tv;
 

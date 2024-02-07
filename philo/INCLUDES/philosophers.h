@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:29:02 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/07 17:14:38 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/07 18:00:24 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_bzero(void *s, size_t n);
 
 // UTILS_2
 int		_print_status(t_status status, long time_stamp, int id);
+long	_precise_time(t_timecode time_code);
 
 // INIT
 void	_fork_assignment(t_table *table, int i);
