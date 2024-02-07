@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:04:59 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/06 15:49:27 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:24:40 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,11 @@ bool	_invalid_char(int argc, char **argv)
 	return (false);
 }
 
-bool	_is_valid_input(int argc, char *argv[])
+int	_is_valid_input(int argc, char *argv[])
 {
 	if (argc < 5 || argc > 6)
-	{
-		_put_str_fd(RED"ERROR: Invalid number of arguments!\n"RESET, 2);
-		return (false);	
-	}
+		return (_error_message("ERROR: Invalid number of arguments."));
 	if (_invalid_char(argc, argv))
-	{
-		_put_str_fd(RED"ERROR: Invalid argument!\n"RESET, 2);
-		return (false);
-	}
-	return (true);
+		return (_error_message(("ERROR: Invalid argument.")));
+	return (0);
 }

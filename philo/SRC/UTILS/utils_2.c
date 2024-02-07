@@ -6,71 +6,41 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:39:53 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/06 16:04:17 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:15:15 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/philosophers.h"
 
-static int	ft_count_digits(int n)
+long	precise_time(t_timecode time_code)
 {
-	int	digits;
+	struct timeval	tv;
 
-	digits = 1;
-	if (n < 0)
-	{
-		digits++;
-		n = -n;
-	}
-	while (n / 10 > 0)
-	{
-		digits++;
-		n /= 10;
-	}
-	return (digits);
+	if (gettimeofday(&tv, NULL))
+		return (_error_message("Error: Function 'gettimeofday failed.\n"));
+	if (SECOND == time_code)
+		return ((tv.tv_sec + (tv.tv_usec / 1e6)));
+	if (MILISECOND == time_code)
+		return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
+	if (MICROSECOD == time_code)
+		return ((tv.tv_sec * 1e6) + (tv.tv_usec));
+	return (_error_message("ERROR: Wrong time code passed to 'precise_time'"));
 }
 
-static void	ft_fill_result(int n, char *result, int digits)
+int	_print_status(t_status status, long time_stamp, int id)
 {
-	int	check;
-
-	check = 0;
-	result[digits] = '\0';
-	while (digits > check)
-	{
-		if (n < 0)
-		{
-			result[0] = '-';
-			n = -n;
-			check++;
-		}
-		else
-		{
-			result[digits - 1] = n % 10 + '0';
-			n = n / 10;
-			digits--;
-		}
-	}
-}
-
-char	*ft_itoa(int n)
-{
-	char	*result;
-	int		digits;
-
-	digits = ft_count_digits(n);
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	result = (char *)malloc(sizeof(char) * (digits + 1));
-	if (result == NULL)
-		return (NULL);
-	ft_fill_result(n, result, digits);
-	return (result);
-}
-
-void _print_status(int status, long time_stamp)
-{
-	_put_str_fd(ft_itoa(time_stamp), 1);
-	_put_str_fd(" ", 1);
+	printf("%ld ", time_stamp);
 	if (status == THINKING)
+		printf("%d is "YELLOW"thinking\n"RESET, id);
+	else if (status == EATING)
+		printf("%d is "GREEN"eating\n"RESET, id);
+	else if (status == SLEEPING)
+		printf("%d is "MAGENTA"sleeping\n"RESET, id);
+	else if (status == DEAD)
+		printf(RED"%d died\n"RESET, id);
+	else if (status == FORK)
+		printf("%d "BLUE"has taken a fork\n"RESET, id);
+	else
+		return (_error_message("ERROR: Wrong status code passed."));
+	return (_error_message("ERROR: Wrong status code passed."));
 }

@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:33 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/06 15:39:32 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/07 15:53:53 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,6 @@ long	_atol(char *str)
 	return (result * sign);
 }
 
-size_t	_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str || !*str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
-
 void	_put_str_fd(char *str, int fd)
 {
 	int	i;
@@ -76,4 +64,10 @@ void	ft_bzero(void *s, size_t n)
 		p++;
 		i++;
 	}
+}
+
+int	_error_message(char *str)
+{
+	printf(RED"%s\n"RESET, str);
+	return (-1);
 }
