@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:29:02 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/07 18:00:24 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:24:51 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,38 @@ typedef enum e_status
 	DEAD
 }			t_status;
 
-typedef struct s_fork
+typedef struct s_mutex
 {
 	pthread_mutex_t	*fork;
 	int				id;
-}			t_fork;
+}			t_mutex;
 
 typedef struct s_philo
 {
-	t_fork	*r_fork;
-	t_fork	*l_fork;
+	t_mutex	*r_fork;
+	t_mutex	*l_fork;
+	t_mutex	*write_permit;
 	long	number_of_meals;
 	long	last_meal_time;
 	bool	satisfied;
 	bool	alive;
+	bool	*simulation;
 	int		id;
 }			t_philo;
 
 typedef struct s_table
 {
+	pthread_t	*monitoring;
 	pthread_t	*philo;
 	t_philo		*philo_data;
-	t_fork		*forks;
+	t_mutex		*forks;
+	t_mutex		*write_permit;
 	long		time_to_die;
 	long		time_to_eat;
 	long		time_to_sleep;
 	long		number_of_meals;
 	int			nb_philo;
+	bool		simulation;
 }				t_table;
 
 // UTILS_1

@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:54:21 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/07 17:03:52 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:24:19 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	_init_philo(t_table *table)
 		table->philo_data[i].alive = true;
 		table->philo_data[i].satisfied = false;
 		table->philo_data[i].id = i + 1;
+		table->philo_data[i].simulation = &table->simulation;
+		table->philo_data[i].write_permit = &table->write_permit;
 		_fork_assignment(table, i);
 	}
 }
@@ -64,9 +66,13 @@ int	_init_table(t_table *table, int argc, char **argv)
 			table->number_of_meals = -1;
 		table->philo_data = (t_philo *)malloc(sizeof(t_philo) * \
 			table->nb_philo);
+		table->monitoring = (pthread_t *)malloc(sizeof(pthread_t));
 		table->philo = (pthread_t *)malloc(sizeof(pthread_t) * table->nb_philo);
-		table->forks = (t_fork *)malloc(sizeof(t_fork) * table->nb_philo);
-		if (!table->philo_data || !table->philo || !table->forks)
+		table->forks = (t_mutex *)malloc(sizeof(t_mutex) * table->nb_philo);
+		table->write_permit = (t_mutex *)malloc(sizeof(t_mutex));
+		table->simulation = (bool *)malloc(sizeof(bool));
+		if (!table->philo_data || !table->philo || !table->forks \
+			|| !table->write_permit || !table->simulation || !table->monitoring)
 			return (_error_message("ERROR: Memory allocation failed."));
 		_init_philo(table);
 	}
