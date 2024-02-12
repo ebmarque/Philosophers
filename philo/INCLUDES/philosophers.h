@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:29:02 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/12 14:24:51 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:37:51 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,19 @@ typedef enum e_status
 	DEAD
 }			t_status;
 
-typedef struct s_mutex
-{
-	pthread_mutex_t	*fork;
-	int				id;
-}			t_mutex;
-
+typedef pthread_mutex_t t_mutex;
 typedef struct s_philo
 {
-	t_mutex	*r_fork;
-	t_mutex	*l_fork;
+	t_mutex	*f_fork;
+	t_mutex	*s_fork;
 	t_mutex	*write_permit;
+	long	start_time;
 	long	number_of_meals;
 	long	last_meal_time;
+	int		id;
 	bool	satisfied;
 	bool	alive;
 	bool	*simulation;
-	int		id;
 }			t_philo;
 
 typedef struct s_table
@@ -76,6 +72,7 @@ typedef struct s_table
 	long		time_to_eat;
 	long		time_to_sleep;
 	long		number_of_meals;
+	long		start_time;
 	int			nb_philo;
 	bool		simulation;
 }				t_table;
@@ -98,5 +95,17 @@ int		_init_table(t_table *table, int argc, char **argv);
 // ERRORS
 int		_is_valid_input(int argc, char *argv[]);
 bool	_invalid_char(int argc, char **argv);
+
+
+// INIT_2
+void	_wait_simulation_start(t_philo *philo);
+void	*_monitoring_thread(void *data);
+void	_eat(t_philo *philo);
+void	_take_forks(t_philo *philo);
+void	*_simulation(void *data);
+int		_init_forks(t_table *table);
+int		_create_threads(t_table *table);
+int		_start_simulation(t_table *table);
+void	_join_and_destroy(t_table *table);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:33 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/07 15:53:53 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:39:51 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ long	_atol(char *str)
 	int		sign;
 
 	result = 0;
-	sign = 0;
+	sign = 1;
 	if (!str | !*str)
 		return (0);
 	while ((*str && *str >= 9 && *str <= 13) || *str == 32)
@@ -29,7 +29,7 @@ long	_atol(char *str)
 			sign *= -1;
 		str++;
 	}
-	while (*str && (*str >= 0 && *str <= 9))
+	while (*str && (*str >= '0' && *str <= '9'))
 	{
 		result = result * 10 + (*str - '0');
 		str++;

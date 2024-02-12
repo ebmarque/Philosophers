@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:39:53 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/07 18:00:12 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:44:29 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ int	_print_status(t_status status, long time_stamp, int id)
 		printf("%d "BLUE"has taken a fork\n"RESET, id);
 	else
 		return (_error_message("ERROR: Wrong status code passed."));
-	return (_error_message("ERROR: Wrong status code passed."));
+	return (0);
 }
