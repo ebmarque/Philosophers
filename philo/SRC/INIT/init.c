@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:54:21 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/12 18:00:29 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/15 11:48:21 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	_fork_assignment(t_table *table, int i)
 {
 	if (table->philo_data[i].id % 2 != 0)
 	{
-		table->philo_data->f_fork = &table->forks[i];
-		table->philo_data->s_fork = &table->forks[(i + 1) % table->nb_philo];
+		table->philo_data[i].f_fork = &table->forks[i];
+		table->philo_data[i].s_fork = &table->forks[(i + 1) % table->nb_philo];
 	}
 	else
 	{
-		table->philo_data->f_fork = &table->forks[(i + 1) % table->nb_philo];
-		table->philo_data->s_fork = &table->forks[i];
+		table->philo_data[i].f_fork = &table->forks[(i + 1) % table->nb_philo];
+		table->philo_data[i].s_fork = &table->forks[i];
 	}
 }
 
