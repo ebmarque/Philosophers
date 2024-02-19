@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:39:53 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/12 17:44:29 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:05:19 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,27 @@ long	_precise_time(t_timecode time_code)
 	return (_error_message("ERROR: Wrong time code passed to 'precise_time'"));
 }
 
-int	_print_status(t_status status, long time_stamp, int id)
+int	_print_status(t_status status, t_philo *philo)
 {
-	printf("%ld ", time_stamp);
+	long	time_stamp;
+
+	time_stamp = _precise_time(MILISECOND) - philo->start_time;
+	pthread_mutex_lock(philo->write_permit);
 	if (status == THINKING)
-		printf("%d is "YELLOW"thinking\n"RESET, id);
+		printf("%ld %d is "YELLOW"thinking\n"RESET, time_stamp, philo->id);
 	else if (status == EATING)
-		printf("%d is "GREEN"eating\n"RESET, id);
+		printf("%ld %d is "GREEN"eating\n"RESET, time_stamp, philo->id);
 	else if (status == SLEEPING)
-		printf("%d is "MAGENTA"sleeping\n"RESET, id);
+		printf("%ld %d is "MAGENTA"sleeping\n"RESET, time_stamp, philo->id);
 	else if (status == DEAD)
-		printf(RED"%d died\n"RESET, id);
+		printf(RED"%ld %d died\n"RESET, time_stamp, philo->id);
 	else if (status == FORK)
-		printf("%d "BLUE"has taken a fork\n"RESET, id);
+		printf("%ld %d "BLUE"has taken a fork\n"RESET, time_stamp, philo->id);
 	else
-		return (_error_message("ERROR: Wrong status code passed."));
+	{
+		pthread_mutex_unlock(philo->write_permit);
+ 		return (_error_message("ERROR: Wrong status code passed."));
+	}
+	pthread_mutex_unlock(philo->write_permit);
 	return (0);
 }

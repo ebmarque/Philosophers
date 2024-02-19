@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:29:02 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/12 17:37:51 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:10:04 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ typedef struct s_philo
 	t_mutex	*s_fork;
 	t_mutex	*write_permit;
 	long	start_time;
+	long	start_action;
 	long	number_of_meals;
 	long	last_meal_time;
+	long	time_to_die;
+	long	time_to_eat;
+	long	time_to_sleep;
 	int		id;
 	bool	satisfied;
 	bool	alive;
@@ -84,7 +88,7 @@ void	_put_str_fd(char *str, int fd);
 void	ft_bzero(void *s, size_t n);
 
 // UTILS_2
-int		_print_status(t_status status, long time_stamp, int id);
+int		_print_status(t_status status, t_philo *philo);
 long	_precise_time(t_timecode time_code);
 
 // INIT
@@ -98,14 +102,20 @@ bool	_invalid_char(int argc, char **argv);
 
 
 // INIT_2
-void	_wait_simulation_start(t_philo *philo);
-void	*_monitoring_thread(void *data);
-void	_eat(t_philo *philo);
-void	_take_forks(t_philo *philo);
-void	*_simulation(void *data);
 int		_init_forks(t_table *table);
 int		_create_threads(t_table *table);
-int		_start_simulation(t_table *table);
 void	_join_and_destroy(t_table *table);
+
+// SIMULATION
+int		_start_simulation(t_table *table);
+void	_wait_simulation_start(t_philo *philo);
+void	*_simulation(void *data);
+void	*_monitoring_thread(void *data);
+
+// ACTIONS 
+void	_take_forks(t_philo *philo);
+void	_eat(t_philo *philo);
+void	_philo_sleep(t_philo *philo);
+
 
 #endif

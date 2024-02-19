@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:54:21 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/15 11:48:21 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:17:12 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ void	_init_philo(t_table *table)
 		table->philo_data[i].alive = true;
 		table->philo_data[i].satisfied = false;
 		table->philo_data[i].id = i + 1;
+		table->philo_data[i].time_to_die = table->time_to_die;
+		table->philo_data[i].time_to_eat = table->time_to_eat;
+		table->philo_data[i].time_to_sleep = table->time_to_sleep;
 		table->philo_data[i].simulation = &table->simulation;
 		table->philo_data[i].start_time = _precise_time(MILISECOND);
 		table->philo_data[i].write_permit = table->write_permit;
