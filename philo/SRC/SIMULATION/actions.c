@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:45:50 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/21 18:35:16 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/21 22:34:13 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	_eat(t_philo *philo)
 	if (philo->table->number_of_meals > 0 && (_get_long(&philo->meals, \
 		philo->table->read_permit) >= philo->table->number_of_meals ))
 		_set_bool(&philo->satisfied, philo->table->write_permit, true);
-	printf("PHILO : %ld is satisfied: %d\n", philo->id, _get_bool(&philo->satisfied, philo->table->read_permit));
 }
 
 void	_take_forks(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:37:22 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/21 18:22:31 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/21 23:04:52 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	*_simulation(void *data)
 	_wait_simulation_start(philo);
 	if(philo->id % 2 == 0)
 		_precise_usleep(10, philo->table);
+	_set_long(&philo->table->start_time, philo->table->write_permit, \
+			_precise_time(MILISECOND));
 	while (_simulation_status(philo->table))
 	{
-		_set_long(&philo->start_action, philo->table->write_permit, \
-			_precise_time(MILISECOND));
 		_take_forks(philo);
 		_philo_sleep(philo);
 		_print_status(THINKING, philo);
