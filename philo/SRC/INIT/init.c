@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:54:21 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/19 16:17:12 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:47:37 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,12 @@ void	_init_philo(t_table *table)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
 			_error_message("ERROR: Mutex initialization failed.");
-		table->philo_data[i].number_of_meals = table->number_of_meals;
 		table->philo_data[i].alive = true;
 		table->philo_data[i].satisfied = false;
 		table->philo_data[i].id = i + 1;
-		table->philo_data[i].time_to_die = table->time_to_die;
-		table->philo_data[i].time_to_eat = table->time_to_eat;
-		table->philo_data[i].time_to_sleep = table->time_to_sleep;
-		table->philo_data[i].simulation = &table->simulation;
-		table->philo_data[i].start_time = _precise_time(MILISECOND);
-		table->philo_data[i].write_permit = table->write_permit;
+		table->philo_data[i].meals = 0;
+		table->philo_data[i].last_meal_time = 0;
+		table->philo_data[i].table = table;
 		_fork_assignment(table, i);
 	}
 }
@@ -75,9 +71,9 @@ int	_init_table(t_table *table, int argc, char **argv)
 	table->philo = (pthread_t *)malloc(sizeof(pthread_t) * table->nb_philo);
 	table->forks = (t_mutex *)malloc(sizeof(t_mutex) * table->nb_philo);
 	table->write_permit = (t_mutex *)malloc(sizeof(t_mutex));
-	table->simulation = (bool *)malloc(sizeof(bool));
+	table->read_permit = (t_mutex *)malloc(sizeof(t_mutex));
 	if (!table->philo_data || !table->philo || !table->forks \
-		|| !table->write_permit || !table->simulation || !table->monitoring)
+		|| !table->write_permit || !table->monitoring)
 		return (_error_message("ERROR: Memory allocation failed."));
 	_init_philo(table);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:54:33 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/12 17:39:51 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:13:31 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,14 @@ int	_error_message(char *str)
 {
 	printf(RED"%s\n"RESET, str);
 	return (-1);
+}
+
+long	_get_long(long *value, t_mutex *mutex)
+{
+	long	long_value;
+
+	pthread_mutex_lock(mutex);
+	long_value = *value;
+	pthread_mutex_unlock(mutex);
+	return (long_value);
 }

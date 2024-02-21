@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:37:22 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/19 16:12:35 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:22:31 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,10 @@
 
 void	_wait_simulation_start(t_philo *philo)
 {
-	while (philo->simulation == false)
+	while (!_simulation_status(philo->table))
 		;
 }
 
-void	*_monitoring_thread(void *data)
-{
-	t_table	*table;
-	int		i;
-
-	i = 0;
-	table = (t_table *)data;
-	while (i < table->nb_philo)
-	{
-		if (table->philo_data[i + 1].alive == false)
-			table->simulation = false;
-		i++;
-		if (i == table->nb_philo)
-			i = 0;
-	}
-	return (0);
-}
 
 void	*_simulation(void *data)
 {
@@ -42,13 +25,16 @@ void	*_simulation(void *data)
 
 	philo = (t_philo *)data;
 	_wait_simulation_start(philo);
-	while (*philo->simulation)
+	if(philo->id % 2 == 0)
+		_precise_usleep(10, philo->table);
+	while (_simulation_status(philo->table))
 	{
-		philo->start_action = _precise_time(MICROSECOD);
-		_print_status(THINKING, philo);
+		_set_long(&philo->start_action, philo->table->write_permit, \
+			_precise_time(MILISECOND));
 		_take_forks(philo);
 		_philo_sleep(philo);
-		if (!*philo->simulation)
+		_print_status(THINKING, philo);
+		if (!_simulation_status(philo->table))
 			break ;
 	}
 	return (0);
@@ -57,9 +43,7 @@ int	_start_simulation(t_table *table)
 {
 	if (_init_forks(table) == 0)
 		if (_create_threads(table) == 0)
-			table->simulation = true;
-	sleep(3);
-	table->simulation = false;
+			_set_bool(&table->simulation, table->write_permit, true);
 	_join_and_destroy(table);
 	return (0);
 }
