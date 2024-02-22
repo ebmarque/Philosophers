@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:37:22 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/22 12:34:49 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:30:37 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	_go_think(t_philo *philo, t_table *table)
 	last_meal = _get_long(&philo->last_meal_time, table->read_permit);
 	t_die = _get_long(&table->time_to_die, table->read_permit);
 	rem = t_die - (_precise_time(MILISECOND) - start_time) - last_meal;
-	// printf("philo: %ld has %ld miliseconds to die\n", philo->id, rem);
-	if (rem > 2e3)
-		_precise_usleep(10, table);
+	printf("philo: %ld has %ld miliseconds to die\n", philo->id, rem);
+	if (rem > 0)
+		_precise_usleep(rem / 2, table);
 }
 
 void	_wait_simulation_start(t_philo *philo)
