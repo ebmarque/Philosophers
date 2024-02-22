@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:29:02 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/21 18:14:40 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:09:30 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ typedef enum e_status
 	THINKING,
 	EATING,
 	SLEEPING,
-	DEAD
+	DEAD,
+	AWAITING
 }			t_status;
 
-typedef pthread_mutex_t t_mutex;
+typedef pthread_mutex_t	t_mutex;
 typedef struct s_philo
 {
 	t_mutex			*f_fork;
@@ -105,7 +106,6 @@ int		_init_table(t_table *table, int argc, char **argv);
 int		_is_valid_input(int argc, char *argv[]);
 bool	_invalid_char(int argc, char **argv);
 
-
 // INIT_2
 int		_init_forks(t_table *table);
 int		_create_threads(t_table *table);
@@ -119,11 +119,9 @@ void	*_simulation(void *data);
 //  MONITORING
 void	*_monitoring(void *data);
 
-
 // ACTIONS 
 void	_take_forks(t_philo *philo);
 void	_eat(t_philo *philo);
 void	_philo_sleep(t_philo *philo);
-
 
 #endif

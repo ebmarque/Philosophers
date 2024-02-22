@@ -6,12 +6,11 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:26:13 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/21 18:35:51 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:25:38 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../INCLUDES/philosophers.h"
-
 
 int	_init_forks(t_table *table)
 {
@@ -19,7 +18,7 @@ int	_init_forks(t_table *table)
 
 	i = -1;
 	if (pthread_mutex_init(table->write_permit, NULL) != 0)
-			return (_error_message("ERROR: Failed to initialize mutex."));
+		return (_error_message("ERROR: Failed to initialize mutex."));
 	if (pthread_mutex_init(table->read_permit, NULL) != 0)
 		return (_error_message("ERROR: Failed to initialize mutex."));
 	while (++i < table->nb_philo)

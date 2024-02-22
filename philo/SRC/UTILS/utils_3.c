@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:16:21 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/21 17:45:35 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:23:01 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	_precise_usleep(long usec, t_table *table)
 	while (_precise_time(MILISECOND) - start < usec)
 	{
 		if (_simulation_status(table) == false)
-			break;
+			break ;
 		elapsed = _precise_time(MILISECOND) - start;
 		rem = usec - elapsed;
 		if (rem > 1e3)
@@ -35,7 +35,6 @@ void	_precise_usleep(long usec, t_table *table)
 				;
 		}
 	}
-	
 }
 
 bool	_simulation_status(t_table *table)
@@ -56,5 +55,5 @@ void	_clean_all_data(t_table *table)
 	if (table->read_permit)
 		free(table->read_permit);
 	if (table->monitoring)
-		free(table->monitoring);	
+		free(table->monitoring);
 }

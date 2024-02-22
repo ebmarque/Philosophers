@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:08:09 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/21 22:58:23 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:21:03 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	*_monitoring(void *data)
 			_set_bool(&table->simulation, table->write_permit, false);
 			printf(GREEN"All philosophers are satisfied!\n"RESET);
 		}
-		// printf("counter: %d\n", counter);
 	}
 	return (NULL);
 }

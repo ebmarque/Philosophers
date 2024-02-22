@@ -6,7 +6,7 @@
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:39:53 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/21 17:41:00 by ebmarque         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:23:54 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,21 @@ int	_print_status(t_status status, t_philo *philo)
 {
 	long	time_stamp;
 
+	pthread_mutex_lock(philo->table->write_permit);
 	time_stamp = _precise_time(MILISECOND) - \
 		_get_long(&philo->table->start_time, philo->table->read_permit);
-	pthread_mutex_lock(philo->table->write_permit);
-	if (_simulation_status(philo->table))
-	{
-		if (status == THINKING)
-			printf("%ld %ld is "YELLOW"thinking\n"RESET, time_stamp, philo->id);
-		else if (status == EATING)
-			printf("%ld %ld is "GREEN"eating\n"RESET, time_stamp, philo->id);
-		else if (status == SLEEPING)
-			printf("%ld %ld is "MAGENTA"sleeping\n"RESET, time_stamp, philo->id);
-		else if (status == DEAD)
-			printf(RED"%ld %ld died\n"RESET, time_stamp, philo->id);
-		else if (status == FORK)
-			printf("%ld %ld "BLUE"has taken a fork\n"RESET, time_stamp, philo->id);
-		else
-		{
-			pthread_mutex_unlock(philo->table->write_permit);
-			return (_error_message("ERROR: Wrong status code passed."));
-		}
-	}
+	if (status == THINKING && _simulation_status(philo->table))
+		printf("%ld %ld is "YELLOW"thinking\n"RESET, time_stamp, philo->id);
+	else if (status == EATING && _simulation_status(philo->table))
+		printf("%ld %ld is "GREEN"eating\n"RESET, time_stamp, philo->id);
+	else if (status == SLEEPING && _simulation_status(philo->table))
+		printf("%ld %ld is "MAGENTA"sleeping\n"RESET, time_stamp, philo->id);
+	else if (status == DEAD && _simulation_status(philo->table))
+		printf(RED"%ld %ld died\n"RESET, time_stamp, philo->id);
+	else if (status == FORK && _simulation_status(philo->table))
+		printf("%ld %ld "BLUE"has taken a fork\n"RESET, time_stamp, philo->id);
+	else if (status == AWAITING)
+		printf("%ld %ld "BLUE"IS WAITING TO BEGIN\n"RESET, time_stamp, philo->id);
 	pthread_mutex_unlock(philo->table->write_permit);
 	return (0);
 }
