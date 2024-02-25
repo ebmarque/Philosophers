@@ -5,23 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebmarque <ebmarque@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 12:31:22 by ebmarque          #+#    #+#             */
-/*   Updated: 2024/02/22 18:02:28 by ebmarque         ###   ########.fr       */
+/*   Created: 2024/02/23 17:51:40 by ebmarque          #+#    #+#             */
+/*   Updated: 2024/02/25 18:57:25 by ebmarque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../INCLUDES/philosophers.h"
+#include "../../include/philosophers.h"
 
 int	main(int argc, char *argv[])
 {
 	t_table	table;
 
-	(void)table;
 	if (_is_valid_input(argc, argv) == 0)
 	{
-		if (_init_table(&table, argc, argv) != 0)
-			return (0);
-		_start_simulation(&table);
+		if (_table_init_data(&table, argc, argv) == 0)
+		{
+			if (_init_mutexes(&table) == 0)
+				if (_init_threads(&table) == 0)
+					_join_and_destroy(&table);
+		}
+		_clean_all_data(&table);
 	}
 	return (0);
 }
